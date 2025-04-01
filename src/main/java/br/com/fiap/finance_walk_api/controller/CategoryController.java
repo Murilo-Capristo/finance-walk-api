@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import br.com.fiap.finance_walk_api.repository.CategoryRepository;
 
 @RestController
 @RequestMapping("/categories")
+// @CrossOrigin(origins = "http://localhost:3000")
 public class CategoryController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -38,7 +40,7 @@ public class CategoryController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Category create(@RequestBody Category category) {
+    public Category create(@RequestBody @Valid Category category) {
         log.info("Cadastrando categoria " + category.getName());
         return repository.save(category);
     }

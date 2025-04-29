@@ -35,14 +35,12 @@ public class CategoryController {
     private CategoryRepository repository;
 
     @GetMapping
-    @Cacheable
     @Operation(summary = "Listar todas categorias", description = "Lista todas as categorias salvas para um determinado usuário", tags = "Category")
     public List<Category> index() {
         return repository.findAll();
     }
 
     @PostMapping
-    @CacheEvict(allEntries = true)
     @Operation(responses = @ApiResponse(responseCode = "400"))
     @ResponseStatus(HttpStatus.CREATED)
     public Category create(@RequestBody @Valid Category category) {
@@ -57,7 +55,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("{id}")
-    @CacheEvict(allEntries = true)
+
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void destroy(@PathVariable Long id) {
         log.info("Apagando categoria " + id);
@@ -65,7 +63,7 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    @CacheEvict(allEntries = true)
+
     public Category update(@PathVariable Long id, @RequestBody Category category) {
         log.info("Atualizando categoria " + id + " " + category);
 
